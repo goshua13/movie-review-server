@@ -7,15 +7,15 @@ router.get("/users", (req, res) => {
   userService.get(req, res);
 });
 
-router.put("/user/:id", (req, res) => {
+router.put("/users/:id", (req, res) => {
   userService.create(req, res);
 });
 
-router.post("/user", (req, res) => {
+router.post("/users", (req, res) => {
   userService.update(req, res);
 });
 
-router.delete("/user/:id", (req, res) => {
+router.delete("/users/:id", (req, res) => {
   userService.destroy(req, res);
 });
 

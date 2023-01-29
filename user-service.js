@@ -16,9 +16,9 @@ function get(req, res) {
 }
 
 function create(req, res) {
-  const { id, name, saying } = req.body;
+  const { id, name, movies, relationScore } = req.body;
 
-  const user = new User({ id, name, saying });
+  const user = new User({ id, name, movies, relationScore });
   user
     .save()
     .then(() => {
