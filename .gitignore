@@ -131,3 +131,4 @@ dist
 
 # environments
 env/environment.js
+node_modules
