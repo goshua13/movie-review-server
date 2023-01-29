@@ -1,10 +1,10 @@
-const User = require("./user-model");
+const Users = require("./user-model");
 const ReadPreference = require("mongodb").ReadPreference;
 
 require("./mongo").connect();
 
 function get(req, res) {
-  const docquery = User.find({}).read(ReadPreference.NEAREST);
+  const docquery = Users.find({}).read(ReadPreference.NEAREST);
   docquery
     .exec()
     .then((users) => {
@@ -32,7 +32,7 @@ function create(req, res) {
 function update(req, res) {
   const { id, name, saying } = req.body;
 
-  User.findOne({ id })
+  Users.findOne({ id })
     .then((user) => {
       user.name = name;
       user.saying = saying;
@@ -46,7 +46,7 @@ function update(req, res) {
 function destroy(req, res) {
   const { id } = req.params;
 
-  User.findOneAndRemove({ id })
+  Users.findOneAndRemove({ id })
     .then((user) => {
       res.json(user);
     })

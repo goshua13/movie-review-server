@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema(
+const usersSchema = new Schema(
   {
     id: { type: Number, required: true, unique: true },
     name: String,
@@ -11,5 +11,5 @@ const userSchema = new Schema(
   { autoIndex: false }
 );
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Users = mongoose.model("Users", usersSchema);
+module.exports = Users;
