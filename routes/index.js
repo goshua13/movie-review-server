@@ -17,9 +17,10 @@ router.delete("/users/:id", (req, res) => {
   userService.destroy(req, res);
 });
 
-router.get("/top-movies", (req, res) => {
-  topMoviesService.get(req, res);
+router.post("/top-movies/update", (req, res) => {
+  topMoviesService.updateTopMovies(req, res);
 });
+
 router.post("/top-movies", (req, res) => {
   topMoviesService.create(req, res);
 });
