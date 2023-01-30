@@ -1,7 +1,7 @@
-const Users = require("./user-model");
+const { Users } = require("../models");
 const ReadPreference = require("mongodb").ReadPreference;
 
-require("./mongo").connect();
+require("../mongo").connect();
 
 function get(req, res) {
   const docquery = Users.find({}).read(ReadPreference.NEAREST);

@@ -3,10 +3,18 @@ const path = require("path");
 const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const index = require("./routes/index");
 
 const app = express();
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'cam.png')));
@@ -22,7 +30,7 @@ app.set("view engine", "jade");
 
 app.use("/", index);
 app.get("*", (req, res) => {
-  res.send("EMPTY.... Gimme something!");
+  res.send("/.auth/login/google");
 });
 
 // catch 404 and forward to error handler
