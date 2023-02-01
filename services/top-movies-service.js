@@ -52,4 +52,4 @@ function get(req, res) {
     });
 }
 
-module.exports = { get, create, updateTopMovies };
+module.exports = { get, updateTopMovies };

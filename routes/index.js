@@ -4,6 +4,9 @@ const router = express.Router();
 const userService = require("../services/user-service");
 const topMoviesService = require("../services/top-movies-service");
 
+router.post("/users/login", (req, res) => {
+  userService.login(req, res);
+});
 router.get("/users", (req, res) => {
   userService.get(req, res);
 });

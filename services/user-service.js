@@ -3,6 +3,20 @@ const ReadPreference = require("mongodb").ReadPreference;
 
 require("../mongo").connect();
 
+function login(req, res) {
+  Users.User.findOne({ id: req.body.id }, function (err, user) {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!user) {
+      // Create user
+      return res.status(200).send("User account created");
+    }
+
+    return res.status(200).send("You are logged in succesfully.");
+  });
+}
+
 function get(req, res) {
   const docquery = Users.find({}).read(ReadPreference.NEAREST);
   docquery
@@ -16,6 +30,7 @@ function get(req, res) {
 }
 
 function create(req, res) {
+  console.log(res);
   const { id, name, email, picture, movies, relationScore } = req.body;
 
   const user = new Users({ id, name, email, picture, movies, relationScore });
@@ -42,4 +57,4 @@ function destroy(req, res) {
     });
 }
 
-module.exports = { get, create, update, destroy };
+module.exports = { get, create, login, destroy };
