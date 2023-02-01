@@ -3,18 +3,49 @@ const ReadPreference = require("mongodb").ReadPreference;
 
 require("../mongo").connect();
 
-function login(req, res) {
-  Users.User.findOne({ id: req.body.id }, function (err, user) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    if (!user) {
-      // Create user
-      return res.status(200).send("User account created");
-    }
+async function _createUser(body) {
+  const { id, name, email, picture = "" } = body;
 
-    return res.status(200).send("You are logged in succesfully.");
-  });
+  const user = new Users({ _id: id, name, email, picture });
+  console.log({ user, body });
+  await user.save();
+  return user;
+}
+
+function login(req, res) {
+  Users.findOne(
+    { $or: [{ _id: req.body.id }, { email: req.body.email }] },
+    function (err, user) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      if (!user) {
+        // TODO: rewrite this funcionality
+        return _createUser(req.body)
+          .then((user) => {
+            return res.status(200).send(user);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send(err);
+          });
+      }
+
+      return res.status(200).send("You are logged in succesfully.");
+    }
+  );
+}
+
+function create(req, res) {
+  return _createUser(req.body)
+    .save()
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err);
+    });
 }
 
 function get(req, res) {
@@ -26,22 +57,6 @@ function get(req, res) {
     })
     .catch((err) => {
       res.status(500).send(err);
-    });
-}
-
-function create(req, res) {
-  console.log(res);
-  const { id, name, email, picture, movies, relationScore } = req.body;
-
-  const user = new Users({ id, name, email, picture, movies, relationScore });
-  user
-    .save()
-    .then(() => {
-      res.json(user);
-    })
-    .catch((err) => {
-      console.log(err);
-      // res.status(500).send(err);
     });
 }
 
