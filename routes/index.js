@@ -10,19 +10,17 @@ router.get("/users", (req, res) => {
 router.put("/users/:id", (req, res) => {
   userService.create(req, res);
 });
-router.post("/users", (req, res) => {
-  userService.update(req, res);
-});
 router.delete("/users/:id", (req, res) => {
   userService.destroy(req, res);
 });
 
-router.post("/top-movies/update", (req, res) => {
+//This api should only be run once every month.
+router.post("/top-movies/update", async (req, res) => {
   topMoviesService.updateTopMovies(req, res);
 });
 
 router.post("/top-movies", (req, res) => {
-  topMoviesService.create(req, res);
+  topMoviesService.get(req, res);
 });
 
 module.exports = router;

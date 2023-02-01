@@ -16,30 +16,17 @@ function get(req, res) {
 }
 
 function create(req, res) {
-  const { id, name, movies, relationScore } = req.body;
+  const { id, name, email, picture, movies, relationScore } = req.body;
 
-  const user = new Users({ id, name, movies, relationScore });
+  const user = new Users({ id, name, email, picture, movies, relationScore });
   user
     .save()
     .then(() => {
       res.json(user);
     })
     .catch((err) => {
-      res.status(500).send(err);
-    });
-}
-
-function update(req, res) {
-  const { id, name, saying } = req.body;
-
-  Users.findOne({ id })
-    .then((user) => {
-      user.name = name;
-      user.saying = saying;
-      user.save().then(res.json(user));
-    })
-    .catch((err) => {
-      res.status(500).send(err);
+      console.log(err);
+      // res.status(500).send(err);
     });
 }
 

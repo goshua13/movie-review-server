@@ -30,7 +30,7 @@ app.set("view engine", "jade");
 
 app.use("/", index);
 app.get("*", (req, res) => {
-  res.send("/.auth/login/google");
+  res.send("stuffffsasd");
 });
 
 // catch 404 and forward to error handler

@@ -40,12 +40,12 @@ function updateTopMovies(req, res) {
   });
 }
 
-function create(req, res) {
-  const topMovie = new TopMovies(req.body);
-  topMovie
-    .save()
-    .then(() => {
-      res.json(topMovie);
+function get(req, res) {
+  const docquery = TopMovies.find({}).read(ReadPreference.NEAREST);
+  docquery
+    .exec()
+    .then((topMovies) => {
+      res.json(topMovies);
     })
     .catch((err) => {
       res.status(500).send(err);
