@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Login via Az module
-        uses: azure/actions/login@v1
+        uses: azure/login
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
           enable-AzPSSession: true 
