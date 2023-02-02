@@ -6,7 +6,9 @@ const env = require("../env/environment");
 require("../mongo").connect();
 
 function get(req, res) {
-  const docquery = TopMovies.find({}).read(ReadPreference.NEAREST);
+  const docquery = TopMovies.find()
+    .sort({ createdAt: -1 })
+    .read(ReadPreference.NEAREST);
   docquery
     .exec()
     .then((topMovies) => {
@@ -27,7 +29,9 @@ async function getTopMovies(page = 1) {
 function updateTopMovies(req, res) {
   const { page } = req.body;
   getTopMovies(page).then((movies) => {
-    const movieList = movies.map((movie) => TopMovies(movie));
+    const movieList = movies.map((movie) =>
+      TopMovies({ _id: movie.id, ...movie })
+    );
     TopMovies.insertMany(movieList, (err, doc) => {
       if (err) {
         console.error(err);

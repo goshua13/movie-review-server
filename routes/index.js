@@ -18,11 +18,11 @@ router.delete("/users/:id", (req, res) => {
 });
 
 //This api should only be run once every month.
-router.post("/top-movies/update", async (req, res) => {
+router.post("/top-movies", async (req, res) => {
   topMoviesService.updateTopMovies(req, res);
 });
 
-router.post("/top-movies", (req, res) => {
+router.get("/top-movies", (req, res) => {
   topMoviesService.get(req, res);
 });
 

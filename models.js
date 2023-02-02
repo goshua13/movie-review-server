@@ -15,10 +15,10 @@ const usersSchema = new Schema(
 
 const topMoviesSchema = new Schema(
   {
+    _id: { type: Number },
     adult: Boolean,
     backdrop_path: String,
     genre_ids: [Number],
-    id: Number,
     original_language: String,
     original_title: { type: String, require: true },
     overview: String,
@@ -30,7 +30,7 @@ const topMoviesSchema = new Schema(
     vote_average: Number,
     vote_count: Number,
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const Users = mongoose.model("Users", usersSchema);
