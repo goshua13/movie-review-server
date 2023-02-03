@@ -6,9 +6,12 @@ const env = require("../env/environment");
 require("../mongo").connect();
 
 function get(req, res) {
-  const docquery = TopMovies.find()
-    .sort({ createdAt: -1 })
-    .read(ReadPreference.NEAREST);
+  const title = req.query.title;
+  let query = {};
+  if (title) {
+    query.title = { $regex: title, $options: "i" };
+  }
+  const docquery = TopMovies.find(query).read(ReadPreference.NEAREST);
   docquery
     .exec()
     .then((topMovies) => {
@@ -44,7 +47,7 @@ function updateTopMovies(req, res) {
   });
 }
 
-function get(req, res) {
+function getAll(req, res) {
   const docquery = TopMovies.find({}).read(ReadPreference.NEAREST);
   docquery
     .exec()
@@ -56,4 +59,4 @@ function get(req, res) {
     });
 }
 
-module.exports = { get, updateTopMovies };
+module.exports = { get, getAll, updateTopMovies };

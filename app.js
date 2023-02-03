@@ -8,7 +8,7 @@ const cors = require("cors");
 const index = require("./routes/index");
 
 const app = express();
-
+// origin: "chrome-extension://fkcacghcjlkicjoigcggcflmdihcjikk",
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true, //access-control-allow-credentials:true
