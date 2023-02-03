@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userService = require("../services/user-service");
 const topMoviesService = require("../services/top-movies-service");
+const movieService = require("../services/movie-service");
 
 router.post("/users/login", (req, res) => {
   userService.login(req, res);
@@ -15,6 +16,10 @@ router.put("/users/:id", (req, res) => {
 });
 router.delete("/users/:id", (req, res) => {
   userService.destroy(req, res);
+});
+
+router.get("/movie-rating", (req, res) => {
+  movieService.get(req, res);
 });
 
 //This api should only be run once every month.

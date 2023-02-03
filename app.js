@@ -8,9 +8,13 @@ const cors = require("cors");
 const index = require("./routes/index");
 
 const app = express();
-// origin: "chrome-extension://fkcacghcjlkicjoigcggcflmdihcjikk",
+
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: [
+    "https://www.google.com",
+    "http://localhost:3000",
+    "chrome-extension://fkcacghcjlkicjoigcggcflmdihcjikk",
+  ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
